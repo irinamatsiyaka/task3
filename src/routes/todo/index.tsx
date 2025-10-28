@@ -28,7 +28,7 @@ function TodoList(): React.JSX.Element {
             {data.todos.map((todo: Todo) => (
                <Link
                   key={todo.id}
-                  to="/$todoId"
+                  to="/todo/$todoId"
                   params={{ todoId: String(todo.id) }}
                   className={`todo-item ${todo.completed ? "completed" : ""}`}
                >

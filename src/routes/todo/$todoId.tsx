@@ -7,18 +7,13 @@ export const Route = createFileRoute("/todo/$todoId")({
    component: TodoDetails,
 });
 
-function TodoDetails({
-   params,
-}: {
-   params: TodoRouteParams;
-}): React.JSX.Element {
+function TodoDetails(): React.JSX.Element {
+   const { todoId } = Route.useParams();
    const { data, isLoading, error } = useQuery<Todo>({
-      queryKey: ["todo", params.todoId],
+      queryKey: ["todo", todoId],
       queryFn: async () => {
-         const res = await fetch(
-            `https://dummyjson.com/todos/${params.todoId}`
-         );
-         if (!res.ok) return new Error("faild to load");
+         const res = await fetch(`https://dummyjson.com/todos/${todoId}`);
+         if (!res.ok) throw new Error("faild to load");
          return res.json();
       },
    });
@@ -28,7 +23,7 @@ function TodoDetails({
 
    if (!data) return null;
    return (
-      <div className="todo-details">
+      <div className={`todo-details ${data.completed ? "done" : "not"}`}>
          <h2>Todo {data.id}</h2>
          <p className="todo-text">{data.todo}</p>
          <p className={data.completed ? "status done" : "status not done"}>
