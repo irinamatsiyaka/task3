@@ -25,7 +25,7 @@ function TodoList(): React.JSX.Element {
       <div className="todo-container">
          <h2 className="todo-title">TodoList</h2>
          <ul className="todo-list">
-            {data.todos.map((todo: Todo) => (
+            {data?.todos?.map((todo: Todo) => (
                <Link
                   key={todo.id}
                   to="/todo/$todoId"

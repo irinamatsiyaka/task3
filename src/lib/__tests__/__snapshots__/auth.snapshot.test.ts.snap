@@ -1,0 +1,41 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Auth snapshot tests > should match snapshot after creating user 1`] = `
+{
+  "id": 1762119853095,
+  "name": "Snap Name",
+  "username": "snapUser",
+}
+`;
+
+exports[`Comments snapshot tests > should match snapshot after adding several comments 1`] = `
+[
+  {
+    "author": "Irina",
+    "id": "9fc408d5-9685-43dd-ba45-f10195395266",
+    "text": "First snapshot comment",
+    "todoId": "todo42",
+  },
+  {
+    "author": "Irina",
+    "id": "156cd7e8-8c6a-4e8d-9054-53c97b7dcb0f",
+    "text": "Second snapshot comment",
+    "todoId": "todo42",
+  },
+]
+`;
+
+exports[`User validation snapshot test > should match snapshot for empty fields 1`] = `
+{
+  "password": "Password is required",
+  "username": "Username is required",
+}
+`;
+
+exports[`User validation snapshot test > should match snapshot for short password 1`] = `
+{
+  "password": "Password must be at least 5 characters long",
+}
+`;
+
+exports[`User validation snapshot test > should match snapshot for valid data 1`] = `{}`;

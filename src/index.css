@@ -28,7 +28,15 @@ a {
 }
 
 nav {
-   @apply flex justify-center gap-20 py-4 bg-white shadow-md rounded-b-2xl sticky top-0 z-50;
+   @apply relative flex items-center py-4 bg-white shadow-md rounded-b-2xl sticky top-0 z-50 w-full;
+}
+
+.nav-center-abs {
+   @apply absolute left-1/2 -translate-x-1/2 flex gap-10;
+}
+
+.nav-right {
+   @apply ml-auto flex items-center gap-4 pr-4;
 }
 
 nav a {
