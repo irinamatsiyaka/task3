@@ -6,7 +6,7 @@ export const Route = createFileRoute("/")({
 
 function HomePage(): React.JSX.Element {
    return (
-      <section className="flex items-center justify-center min-h-[80vh] bg-gray-100">
+      <section className="flex items-center justify-center mt-6">
          <div className="text-center max-w-2xl p-8 bg-white rounded-2xl shadow-md">
             <h1 className="text-4xl font-bold text-gray-800 mb-4">
                Welcome to Todo App
