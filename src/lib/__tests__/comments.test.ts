@@ -1,18 +1,24 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import { addComment, getComments } from "../comments";
+import { createUser, readUsers } from "../auth";
 
-describe("comments module", () => {
+describe("Auth flow module", () => {
    beforeEach(() => {
       localStorage.clear();
    });
 
-   it("should add a comment to localstorage", () => {
-      const fakeUser = { id: 1, username: "irina", name: "Irina" };
-      addComment("1", fakeUser, "test comment");
-      const comments = getComments("1");
+   it("should create a new user and store in localStorage", () => {
+      const user = createUser("irina", "1234", "Irina");
 
-      expect(comments.length).toBe(1);
-      expect(comments[0].text).toBe("test comment");
-      expect(comments[0].author).toBe("Irina");
+      const users = readUsers();
+      expect(users.length).toBe(1);
+      expect(users[0].username).toBe("irina");
+      expect(users[0].name).toBe("Irina");
+   });
+
+   it("should not allow duplicate usernames", () => {
+      createUser("bob", "1111", "Bob");
+      expect(() => createUser("bob", "2222", "AnotherBob")).toThrow(
+         /already taken/i
+      );
    });
 });

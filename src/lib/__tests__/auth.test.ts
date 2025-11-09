@@ -1,24 +1,9 @@
 import { describe, it, expect, beforeEach } from "vitest";
-import {
-   createUser,
-   signIn,
-   readUsers,
-   signOut,
-   getCurrentUser,
-} from "../auth";
+import { createUser, signIn, signOut, getCurrentUser } from "../auth";
 
 describe("Auth module", () => {
    beforeEach(() => {
       localStorage.clear();
-   });
-
-   it("should create a new user", () => {
-      const newUser = createUser("irina", "1111", "Irina");
-      const allUsers = readUsers();
-
-      expect(newUser.username).toBe("irina");
-      expect(allUsers.length).toBe(1);
-      expect(allUsers[0].username).toBe("irina");
    });
 
    it("should sign in existing user correctly", () => {
@@ -36,12 +21,5 @@ describe("Auth module", () => {
 
       signOut();
       expect(getCurrentUser()).toBeNull();
-   });
-
-   it("should not allow duplicate usernames", () => {
-      createUser("bob", "123", "Bob");
-      expect(() => createUser("bob", "123", "Bob2")).toThrowError(
-         /already taken/i
-      );
    });
 });

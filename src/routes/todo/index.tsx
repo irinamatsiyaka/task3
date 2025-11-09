@@ -22,19 +22,33 @@ function TodoList(): React.JSX.Element {
    if (error) return <p>error loading</p>;
 
    return (
-      <div className="todo-container">
-         <h2 className="todo-title">TodoList</h2>
-         <ul className="todo-list">
+      <div className="max-w-3xl mx-auto mt-8 px-4">
+         <h2 className="text-3xl font-bold mb-6 text-center">Todo list</h2>
+
+         <ul className="space-y-3">
             {data?.todos?.map((todo: Todo) => (
-               <Link
-                  key={todo.id}
-                  to="/todo/$todoId"
-                  params={{ todoId: String(todo.id) }}
-                  className={`todo-item ${todo.completed ? "completed" : ""}`}
-               >
-                  <h3 className="todoInfo">{todo.todo}</h3>
-                  <p>{todo.completed ? "Completed" : "Not completed"}</p>
-               </Link>
+               <li key={todo.id}>
+                  <Link
+                     to="/todo/$todoId"
+                     params={{ todoId: String(todo.id) }}
+                     className={`flex flex-col gap-1 rounded-xl border px-4 py-3 transition hover:bg-gray-50 ${
+                        todo.completed
+                           ? "border-green-400 bg-green-50"
+                           : "border-gray-200 bg-white"
+                     }`}
+                  >
+                     <h3 className="text-lg font-medium text-gray-900">
+                        {todo.todo}
+                     </h3>
+                     <p
+                        className={`text-sm ${
+                           todo.completed ? "text-green-700" : "text-gray-600"
+                        }`}
+                     >
+                        {todo.completed ? "Completed" : "Not completed"}
+                     </p>
+                  </Link>
+               </li>
             ))}
          </ul>
       </div>

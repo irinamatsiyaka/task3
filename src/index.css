@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-:root {
+/* :root {
    --font-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
 }
 
@@ -100,4 +100,4 @@ nav a {
 
 .status.not {
    @apply bg-red-200 text-red-800;
-}
+} */

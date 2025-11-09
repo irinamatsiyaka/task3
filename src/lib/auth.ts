@@ -1,7 +1,11 @@
 import type { AuthUser, AppUser } from "../types/user";
 
-const USERS_KEY = "registeredUser";
-const SESSION_KEY = "loggedInUser";
+import {
+   ERROR_USERNAME_TAKEN,
+   ERROR_INVALID_CREDENTIALS,
+} from "../constants/messages";
+
+import { USERS_KEY, SESSION_KEY } from "../constants/storage";
 
 export function readUsers(): AuthUser[] {
    try {
@@ -41,7 +45,7 @@ export function createUser(
          (existingUsers: AuthUser) => existingUsers.username === username
       )
    ) {
-      throw new Error("this user name is already taken");
+      throw new Error(ERROR_USERNAME_TAKEN);
    }
    const newUser: AuthUser = {
       id: Date.now(),
@@ -60,13 +64,13 @@ export function createUser(
 }
 
 export function signIn(username: string, password: string): AppUser {
-   const users: AuthUser = readUsers();
+   const users: AuthUser[] = readUsers();
    const found = users.find(
       (existingUsers: AuthUser) =>
          existingUsers.username === username &&
          existingUsers.password === password
    );
-   if (!found) throw new Error("Invalid username or password");
+   if (!found) throw new Error(ERROR_INVALID_CREDENTIALS);
    const appUser: AppUser = {
       id: found.id,
       username: found.username,
