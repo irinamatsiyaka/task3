@@ -2,7 +2,6 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import React, { useState } from "react";
 import { createUser } from "../lib/auth";
 import { ROUTES } from "../constants/routes";
-import "./auth.css";
 
 export const Route = createFileRoute("/register")({
    component: RegisterPage,
@@ -25,23 +24,28 @@ function RegisterPage(): React.JSX.Element {
       try {
          setPending(true);
          createUser(username.trim(), password, name.trim() || undefined);
-         nav({ to: ROUTES.HOME });
-         window.location.reload();
+         nav({ to: ROUTES.LOGIN });
       } catch (error) {
-         setErr(error?.message || "failed to register");
+         if (event instanceof Error) {
+            setErr(event.message);
+         } else {
+            setErr("failed to register");
+         }
       } finally {
          setPending(false);
       }
    }
 
    return (
-      <div className="auth-page">
-         <div className="auth-card">
-            <h2 className="auth-title">Register</h2>
+      <div className="flex justify-center items-center h-[80vh] bg-gray-50">
+         <div className="bg-white shadow-lg rounded-2xl p-8 w-80 text-center">
+            <h2 className="text-2xl font-semibold mb-4 text-gray-800">
+               Register
+            </h2>
 
-            <form onSubmit={handleSubmit} className="auth-form">
+            <form onSubmit={handleSubmit} className="space-y-3 text-left">
                <input
-                  className="auth-input"
+                  className="w-full border rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                   placeholder="Username *"
                   value={username}
                   onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
@@ -49,7 +53,7 @@ function RegisterPage(): React.JSX.Element {
                   }
                />
                <input
-                  className="auth-input"
+                  className="w-full border rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                   placeholder="Display name (optional)"
                   value={name}
                   onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
@@ -57,7 +61,7 @@ function RegisterPage(): React.JSX.Element {
                   }
                />
                <input
-                  className="auth-input"
+                  className="w-full border rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                   placeholder="Password *"
                   type="password"
                   value={password}
@@ -66,14 +70,18 @@ function RegisterPage(): React.JSX.Element {
                   }
                />
 
-               {err && <div className="auth-error">{err}</div>}
+               {err && <div className="text-red-600 text-sm">{err}</div>}
 
-               <button type="submit" disabled={pending} className="auth-button">
+               <button
+                  type="submit"
+                  disabled={pending}
+                  className="w-full bg-blue-600 text-white py-2 rounded-xl disabled:opacity-50 hover:bg-blue-700 transition"
+               >
                   {pending ? "Please wait..." : "Register"}
                </button>
             </form>
 
-            <p className="auth-footer">
+            <p className="text-sm text-gray-500 mt-3">
                Already have an account? <Link to={ROUTES.LOGIN}>Login</Link>
             </p>
          </div>

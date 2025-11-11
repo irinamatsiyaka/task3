@@ -6,7 +6,7 @@ export type AuthUser = {
 };
 
 export type AppUser = {
-   id: string;
+   id: number;
    username: string;
    name?: string;
 };
