@@ -7,7 +7,7 @@ describe("Auth flow module", () => {
    });
 
    it("should create a new user and store in localStorage", () => {
-      const user = createUser("irina", "1234", "Irina");
+      createUser("irina", "1234", "Irina");
 
       const users = readUsers();
       expect(users.length).toBe(1);

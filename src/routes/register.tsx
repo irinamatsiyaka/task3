@@ -17,7 +17,7 @@ function RegisterPage(): React.JSX.Element {
    const [err, setErr] = useState<string | null>(null);
    const [pending, setPending] = useState(false);
    const [country, setCountry] = useState("");
-   const [countryName, countryEmoji] = country.split("|");
+   const [, countryEmoji] = country.split("|");
 
    const { data, isLoading, error } = useQuery({
       queryKey: ["countries"],
