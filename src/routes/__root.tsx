@@ -34,6 +34,12 @@ export const Route = createRootRoute({
             </h1>
 
             <nav className="relative flex items-center py-4 bg-white shadow-md rounded-b-2xl sticky top-0 z-50 w-full">
+               {user?.countryEmoji && (
+                  <div className="pl-6 text-3xl" title={user.country}>
+                     {user.countryEmoji}
+                  </div>
+               )}
+
                <div className="absolute left-1/2 -translate-x-1/2 flex gap-10">
                   <Link
                      to={ROUTES.HOME}
