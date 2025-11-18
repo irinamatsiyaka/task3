@@ -47,9 +47,6 @@ socket.onerror = (): void => {
 socket.onmessage = (event: MessageEvent): void => {
    try {
       const rawData = String(event.data);
-      if (!rawData.trim().startsWith("{")) {
-         return;
-      }
       const parseData = JSON.parse(rawData);
 
       if (!isChatMessage(parseData)) return;
