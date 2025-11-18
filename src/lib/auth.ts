@@ -37,9 +37,7 @@ export function setCurrentUser(user: AppUser | null): void {
 export function createUser(
    username: string,
    password: string,
-   name?: string,
-   country?: string,
-   countryEmoji?: string
+   name?: string
 ): AppUser {
    const users: AuthUser[] = readUsers();
    if (
@@ -54,16 +52,12 @@ export function createUser(
       username,
       password,
       name,
-      country,
-      countryEmoji,
    };
    writeUsers([...users, newUser]);
    const appUser: AppUser = {
       id: newUser.id,
       username: newUser.username,
       name: newUser.name,
-      country: newUser.country,
-      countryEmoji: newUser.countryEmoji,
    };
    setCurrentUser(appUser);
    return appUser;
@@ -81,8 +75,6 @@ export function signIn(username: string, password: string): AppUser {
       id: found.id,
       username: found.username,
       name: found.name,
-      country: found.country,
-      countryEmoji: found.countryEmoji,
    };
    setCurrentUser(appUser);
    return appUser;

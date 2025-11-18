@@ -2,9 +2,6 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import React, { useState } from "react";
 import { createUser } from "../lib/auth";
 import { ROUTES } from "../constants/routes";
-import type { CountriesResponse, Country } from "../types/country";
-import { useQuery } from "@tanstack/react-query";
-import { graphqlRequest } from "../lib/graphClient";
 
 export const Route = createFileRoute("/register")({
    component: RegisterPage,
@@ -16,38 +13,17 @@ function RegisterPage(): React.JSX.Element {
    const [password, setPassword] = useState("");
    const [err, setErr] = useState<string | null>(null);
    const [pending, setPending] = useState(false);
-   const [country, setCountry] = useState("");
-   const [countryName, countryEmoji] = country.split("|");
-
-   const { data, isLoading, error } = useQuery({
-      queryKey: ["countries"],
-      queryFn: () =>
-         graphqlRequest<CountriesResponse>(`
-            query{
-               countries{
-                  code
-                  name
-                  emoji
-                  }
-               }`),
-   });
 
    function handleSubmit(event: React.FormEvent): void {
       event.preventDefault();
       setErr(null);
-      if (!username.trim() || !password.trim() || !country) {
+      if (!username.trim() || !password.trim()) {
          setErr("please fill in all required fields");
          return;
       }
       try {
          setPending(true);
-         createUser(
-            username.trim(),
-            password,
-            name.trim() || undefined,
-            country,
-            countryEmoji
-         );
+         createUser(username.trim(), password, name.trim() || undefined);
          nav({ to: ROUTES.LOGIN });
       } catch (error) {
          if (event instanceof Error) {
@@ -93,29 +69,6 @@ function RegisterPage(): React.JSX.Element {
                      setPassword(event.target.value)
                   }
                />
-
-               {isLoading ? (
-                  <p className="text-sm">Loading countries...</p>
-               ) : error ? (
-                  <p className=" text-sm">Failed to load countries...</p>
-               ) : (
-                  <select
-                     className="w-full text-sm"
-                     value={country}
-                     onChange={(event) => setCountry(event.target.value)}
-                  >
-                     <option value="">Select your country:</option>
-                     {data?.countries.map((land: Country) => (
-                        <option
-                           value={`${land.name}|${land.emoji}`}
-                           key={land.name}
-                        >
-                           {land.emoji}
-                           {land.name}
-                        </option>
-                     ))}
-                  </select>
-               )}
 
                {err && <div className="text-red-600 text-sm">{err}</div>}
 
