@@ -82,8 +82,8 @@ function TodoDetails(): React.JSX.Element | null {
       setMessageText("");
    };
 
-   if (isLoading) return <p className="loading">Loading info.....</p>;
-   if (error) return <p className="error">error loading...</p>;
+   if (isLoading) return <p className="text-sm">Loading info.....</p>;
+   if (error) return <p className="text-sm">error loading...</p>;
 
    if (!data) return null;
    return (
